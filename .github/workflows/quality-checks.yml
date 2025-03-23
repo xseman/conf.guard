@@ -1,0 +1,46 @@
+name: quality checks
+
+on:
+    pull_request:
+        branches:
+            - master
+    push:
+        branches:
+            - master
+        paths:
+            - **.ts
+            - package.json
+            - tsconfig.json
+            - .github/workflows/**.yml
+
+jobs:
+    checks:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: ".nvmrc"
+                  cache: npm
+            - run: |
+                  npm install --silent
+
+            - name: typecheck
+              run: |
+                  node --run typecheck
+
+            - name: test
+              run: |
+                  node --run test
+
+    fmt:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version-file: ".nvmrc"
+                  cache: npm
+            - run: |
+                  npm install --silent
+                  node --run fmt:check
