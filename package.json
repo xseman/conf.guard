@@ -1,7 +1,7 @@
 {
 	"name": "conf.guard",
 	"type": "module",
-	"version": "0.0.0",
+	"version": "0.0.1",
 	"license": "Apache-2.0",
 	"description": "Configuration guard",
 	"funding": "https://github.com/sponsors/xseman",
