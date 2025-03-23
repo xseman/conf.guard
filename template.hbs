@@ -1,0 +1,63 @@
+/* tslint:disable */
+/* eslint-disable */
+
+// @ts-nocheck: This file is generated and should not be type-checked
+
+export interface Properties {
+	[property: string]: ValidationSchema
+}
+
+export interface ValidationSchema {
+	type: string;
+	required?: string[];
+	properties?: Properties;
+	items?: ValidationSchema;
+};
+
+export class ConfigValidator {
+    private errors: string[] = [];
+
+    constructor(private schemas: any) {}
+
+    validate(config: unknown): string[] {
+        this.errors = [];
+        this.validateProperties(this.schemas, config, '');
+        return this.errors;
+    }
+
+    private validateProperties(schemas, config, path): void {
+        for (const key in schemas) {
+            const schema = schemas[key];
+            const value = config[key];
+            const currentPath = path ? `${path}.${key}` : key;
+
+            if (schema.type === 'object') {
+                if (typeof value !== 'object' || value === null) {
+                    this.errors.push(`Property '${currentPath}' should be an object.`);
+                } else {
+                    this.validateProperties(schema.properties, value, currentPath);
+                }
+            } else if (schema.type === 'array') {
+                if (!Array.isArray(value)) {
+                    this.errors.push(`Property '${currentPath}' should be an array.`);
+                } else {
+                    value.forEach((item, index) => {
+                        this.validateProperties({ item: schema.items }, { item }, `${currentPath}[${index}]`);
+                    });
+                }
+            } else {
+                if (typeof value !== schema.type) {
+                    this.errors.push(`Property '${currentPath}' should be a ${schema.type}.`);
+                }
+            }
+
+            if (schema.required && !value) {
+                this.errors.push(`Property '${currentPath}' is required.`);
+            }
+        }
+    }
+}
+
+const schema: Properties = {{{json schemas}}};
+
+export const validator = new ConfigValidator(schema);
