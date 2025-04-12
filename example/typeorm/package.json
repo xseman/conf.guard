@@ -1,0 +1,13 @@
+{
+	"type": "module",
+	"scripts": {
+		"start": "TS_NODE_TRANSPILE_ONLY=true node --no-warnings --loader=ts-node/esm ./index.ts"
+	},
+	"dependencies": {
+		"typeorm": "^0.3.21"
+	},
+	"devDependencies": {
+		"ts-node": "^10.9.2",
+		"typescript": "^5.8.0"
+	}
+}

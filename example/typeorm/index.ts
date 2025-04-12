@@ -2,7 +2,7 @@ import path from "node:path";
 
 import type { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions.js";
 
-import { generate } from "../src/generator.js";
+import { generate } from "../../src/generator.js";
 
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
@@ -31,5 +31,13 @@ const config = {
 
 // @ts-ignore: This will fail the validation
 config.db.port = "5432";
+// 👇👇
+// [
+// 	{
+// 		path: "db.port",
+// 		value: "5432",
+// 		expected: "number",
+// 	},
+// ];
 
 console.log(validator.check(config));
