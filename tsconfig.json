@@ -114,9 +114,9 @@
         "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
     },
     "include": [
-        "index.ts",
+        "./src/*.ts",
     ],
     "exclude": [
-        "*.test.ts",
+        "./src/*.test.ts",
     ]
 }

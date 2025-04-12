@@ -1,11 +1,12 @@
 {
-	"lineWidth": 100,
+	"lineWidth": 120,
 	"useTabs": true,
 	"indentWidth": 4,
 	"yaml": {
 		"indentWidth": 4
 	},
 	"typescript": {
+		"operatorPosition": "maintain",
 		"arrayExpression.preferHanging": "onlySingleItem",
 		"arrowFunction.useParentheses": "force",
 		"binaryExpression.operatorPosition": "nextLine",

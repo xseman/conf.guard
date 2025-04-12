@@ -4,10 +4,8 @@
 	"version": "0.0.1",
 	"license": "Apache-2.0",
 	"description": "Configuration guard",
+	"author": "Filip Seman <filip.seman@pm.me>",
 	"funding": "https://github.com/sponsors/xseman",
-	"authors": [
-		"Filip Seman <filip.seman@pm.me>"
-	],
 	"keywords": [
 		"config",
 		"typecheck",
@@ -30,7 +28,7 @@
 		"ts-morph": "^25.0.0"
 	},
 	"devDependencies": {
-		"@types/node": "^22.13.0",
+		"@types/node": "^22.14.0",
 		"dprint": "~0.49.0",
 		"ts-node": "~10.9.0",
 		"typescript": "^5.8.0"

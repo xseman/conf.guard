@@ -1,6 +1,8 @@
 import path from "node:path";
 
-import { generate } from "../generator.js";
+import type { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions.js";
+
+import { generate } from "../src/generator.js";
 
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
@@ -12,19 +14,22 @@ generate({
 // @ts-ignore: Runtime generated
 const { validator } = await import("./check.js");
 
-interface Foo {
-	bar: number;
-	baz: string;
-}
-
 const config = {
-	foo: {
-		bar: 1,
-		baz: "baz",
-	} as Foo,
+	db: {
+		type: "postgres",
+		port: 5432,
+		host: "localhost",
+		username: "postgres",
+		password: "postgres",
+		database: "postgres",
+		logging: false,
+		synchronize: false,
+		subscribers: [],
+		migrations: [],
+	} as PostgresConnectionOptions,
 };
 
 // @ts-ignore: This will fail the validation
-// config.foo.bar = "bar";
+config.db.port = "5432";
 
-console.log(validator.validate(config));
+console.log(validator.check(config));

@@ -28,6 +28,27 @@ similar solution. For now, this is mostly experimental.
 $ npm install conf.guard
 ```
 
+## Configuration Requirements
+
+### TypeScript Configuration
+
+This library uses [ts-morph](https://github.com/dsherret/ts-morph) internally to
+analyze TypeScript types. For ts-morph to properly resolve types in your
+project, your `tsconfig.json` must include at least these settings:
+
+```json
+{
+	"compilerOptions": {
+		"target": "ESNext", // Required for modern JavaScript features
+		"module": "NodeNext", // Required for ESM compatibility
+		"moduleResolution": "nodenext" // Required for proper type resolution
+	}
+}
+```
+
+Without these settings, ts-morph may fail to properly resolve types, which would
+prevent conf.guard from generating accurate runtime validation.
+
 ## Overview
 
 ```ts
@@ -60,5 +81,5 @@ const config = {
 // @ts-ignore: This will fail the validation
 // config.foo.bar = "bar";
 
-validator.validate(config);
+validator.check(config);
 ```
