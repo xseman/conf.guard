@@ -1,7 +1,7 @@
 {
 	"name": "conf.guard",
 	"type": "module",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"license": "Apache-2.0",
 	"description": "Configuration guard",
 	"author": "Filip Seman <filip.seman@pm.me>",
