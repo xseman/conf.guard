@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/xseman/conf.guard/compare/v0.1.0...v0.1.1) (2025-04-12)
+
+
+### Documentation
+
+* update examples ([daefb8b](https://github.com/xseman/conf.guard/commit/daefb8b119f0df77b3b8b254e456e07c5d11b41f))
+
 ## [0.1.0](https://github.com/xseman/conf.guard/compare/v0.0.1...v0.1.0) (2025-04-12)
 
 
