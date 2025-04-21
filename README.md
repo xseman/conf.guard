@@ -60,13 +60,15 @@ import { generate } from "conf.guard";
 
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
-	inputFile: path.join(import.meta.dirname, "./index.ts"),
-	outputFile: path.join(import.meta.dirname, "./check.ts"),
-	variableName: "config",
+	validator: {
+		variableName: "config",
+		inputFile: path.join(import.meta.dirname, "./index.ts"),
+		outputFile: path.join(import.meta.dirname, "./validator.ts"),
+	},
 });
 
 // @ts-ignore: Runtime generated
-const { validator } = await import("./check.js");
+const { validator } = await import("./validator.js");
 
 interface Foo {
 	bar: number;
@@ -137,7 +139,7 @@ const config = nconf
 		},
 	}).get() as Config;
 
-// @ts-ignore: Import generated validator dynamically
+// @ts-ignore: Runtime generated
 const { validator } = await import("./validator.js");
 
 // @ts-ignore: simulate missconfiguration

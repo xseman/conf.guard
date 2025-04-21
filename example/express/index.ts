@@ -46,7 +46,7 @@ const config = nconf
 		},
 	}).get() as Config;
 
-// @ts-ignore: Import generated validator dynamically
+// @ts-ignore: Runtime generated
 const { validator } = await import("./validator.js");
 
 // @ts-ignore: simulate missconfiguration
