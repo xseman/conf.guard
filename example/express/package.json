@@ -4,10 +4,12 @@
 		"start": "TS_NODE_TRANSPILE_ONLY=true node --no-warnings --loader=ts-node/esm ./index.ts"
 	},
 	"dependencies": {
-		"express": "^5.1.0"
+		"express": "^5.1.0",
+		"nconf": "^0.13.0"
 	},
 	"devDependencies": {
 		"@types/express": "^5.0.0",
+		"@types/nconf": "^0.10.7",
 		"@types/node": "^22.14.0",
 		"ts-node": "^10.9.2",
 		"typescript": "^5.8.0"

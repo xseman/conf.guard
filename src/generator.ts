@@ -17,23 +17,25 @@ Handlebars.registerHelper("typeOf", function(value) {
 
 export interface GenerateOptions {
 	tsconfigFilePath: string;
-	inputFile: string;
-	outputFile: string;
-	variableName?: string;
 	templateFile?: string;
+	validator: {
+		inputFile: string;
+		outputFile: string;
+		variableName?: string;
+	};
 }
 
-export function generate(opt: GenerateOptions): void {
+export function generate(options: GenerateOptions): void {
 	// Set up the TypeScript project
 	const project = new Project({
-		tsConfigFilePath: opt.tsconfigFilePath,
+		tsConfigFilePath: options.tsconfigFilePath,
 	});
 
 	// Add the source file to the project
-	const sourceFile = project.addSourceFileAtPath(opt.inputFile);
+	const sourceFile = project.addSourceFileAtPath(options.validator.inputFile);
 
 	// Get the config variable
-	const confVariableName = opt.variableName ?? "config";
+	const confVariableName = options.validator.variableName ?? "config";
 	const confVariable = sourceFile.getVariableDeclarationOrThrow(confVariableName);
 	const confType = confVariable.getType();
 
@@ -41,7 +43,7 @@ export function generate(opt: GenerateOptions): void {
 	const schemas = resolveTypeSchema(confType);
 
 	// Load the template file (either from user option or default)
-	const templatePath = opt.templateFile || path.resolve(import.meta.dirname, "./template.hbs");
+	const templatePath = options.templateFile || path.resolve(import.meta.dirname, "./template.hbs");
 
 	if (!fs.existsSync(templatePath)) {
 		throw new Error(`Template file not found: ${templatePath}`);
@@ -54,11 +56,11 @@ export function generate(opt: GenerateOptions): void {
 	const result = compiledTemplate({ schemas });
 
 	// Create output directory if it doesn't exist
-	const outputDir = path.dirname(opt.outputFile);
+	const outputDir = path.dirname(options.validator.outputFile);
 	if (!fs.existsSync(outputDir)) {
 		fs.mkdirSync(outputDir, { recursive: true });
 	}
 
 	// Write the result to the output file
-	fs.writeFileSync(opt.outputFile, result);
+	fs.writeFileSync(options.validator.outputFile, result);
 }

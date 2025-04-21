@@ -1,18 +1,13 @@
-import fs from "node:fs";
 import path from "node:path";
 
 import express from "express";
+import nconf from "nconf";
 
 import { generate } from "../../src/generator.js";
 
 interface ServerConfig {
 	port: number;
 	host: string;
-}
-
-interface LoggingConfig {
-	level: "debug" | "info" | "warn" | "error";
-	format: "json" | "text";
 }
 
 interface DatabaseConfig {
@@ -23,28 +18,36 @@ interface DatabaseConfig {
 	name: string;
 }
 
-interface AppConfig {
+interface Config {
 	server: ServerConfig;
-	logging: LoggingConfig;
 	database: DatabaseConfig;
 }
 
-// Load configuration from JSON file
-const configFilePath = path.join(import.meta.dirname, "./config.json");
-const config = JSON.parse(fs.readFileSync(configFilePath, "utf8")) as AppConfig;
-
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
-	inputFile: path.join(import.meta.dirname, "./index.ts"),
-	outputFile: path.join(import.meta.dirname, "./validator.ts"),
-	variableName: "config",
+	validator: {
+		variableName: "config",
+		inputFile: path.join(import.meta.dirname, "./index.ts"),
+		outputFile: path.join(import.meta.dirname, "./validator.ts"),
+	},
 });
 
-// Import the generated validator dynamically
-const { validator } = await import("./validator.js");
+const config = nconf
+	.env("__") // Environment variables might make missconfiguration
+	.file("config.json") // This file might make missconfiguration
+	.defaults({
+		server: {
+			port: 3000,
+			host: "localhost",
+		},
+		database: {
+			host: "localhost",
+			port: 5432,
+		},
+	}).get() as Config;
 
-// Create Express app
-const app = express();
+// @ts-ignore: Import generated validator dynamically
+const { validator } = await import("./validator.js");
 
 // @ts-ignore: simulate missconfiguration
 config.server.host = true;
@@ -59,10 +62,12 @@ config.server.host = true;
 
 // Validate configuration at runtime
 const validationErrors = validator.check(config);
+console.log("Validation:", validationErrors);
 
-app.get("/", (_, res) => {
-	res.json(validationErrors);
-});
+// Recover from validation errors or exit...
+
+// Create Express app
+const app = express();
 
 app.listen(
 	config.server.port,

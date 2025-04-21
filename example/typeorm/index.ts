@@ -6,16 +6,18 @@ import { generate } from "../../src/generator.js";
 
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
-	inputFile: path.join(import.meta.dirname, "./index.ts"),
-	outputFile: path.join(import.meta.dirname, "./check.ts"),
-	variableName: "config",
+	validator: {
+		variableName: "config",
+		inputFile: path.join(import.meta.dirname, "./index.ts"),
+		outputFile: path.join(import.meta.dirname, "./validator.ts"),
+	},
 });
 
 // @ts-ignore: Runtime generated
-const { validator } = await import("./check.js");
+const { validator } = await import("./validator.js");
 
 const config = {
-	db: {
+	database: {
 		type: "postgres",
 		port: 5432,
 		host: "localhost",
@@ -30,7 +32,7 @@ const config = {
 };
 
 // @ts-ignore: This will fail the validation
-config.db.port = "5432";
+config.database.port = "5432";
 // 👇👇
 // [
 // 	{
