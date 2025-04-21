@@ -7,6 +7,7 @@ import {
 	describe,
 	it,
 } from "node:test";
+
 import { Project } from "ts-morph";
 
 import { resolveTypeSchema } from "./resolver.js";

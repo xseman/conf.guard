@@ -91,9 +91,11 @@ describe("End-to-End Generator Tests", () => {
 	function generateValidator(options = {}) {
 		return generate({
 			tsconfigFilePath: tsConfigFile,
-			inputFile: inputFile,
-			outputFile: outputFile,
-			variableName: "config",
+			validator: {
+				inputFile: inputFile,
+				outputFile: outputFile,
+				variableName: "config",
+			},
 			...options,
 		});
 	}
@@ -279,9 +281,11 @@ describe("End-to-End Generator Tests", () => {
 		// Generate with output in non-existent directory
 		generate({
 			tsconfigFilePath: tsConfigFile,
-			inputFile: inputFile,
-			outputFile: nestedOutputFile,
-			variableName: "config",
+			validator: {
+				inputFile: inputFile,
+				outputFile: nestedOutputFile,
+				variableName: "config",
+			},
 		});
 
 		// Check that directory and file were created
