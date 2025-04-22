@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.1](https://github.com/xseman/conf.guard/compare/v0.1.0...v0.1.1) (2025-04-21)
+
+
+### Documentation
+
+* **examples:** update express and basic usage ([b083926](https://github.com/xseman/conf.guard/commit/b083926bd6117d15bd6def59b512109b3f4390ba))
+* update examples ([daefb8b](https://github.com/xseman/conf.guard/commit/daefb8b119f0df77b3b8b254e456e07c5d11b41f))
+* update generator config ([e403bfd](https://github.com/xseman/conf.guard/commit/e403bfd5624817b195a6af2840bd0f4639c65f0e))
+
+
+### Testing
+
+* fix generate option structure ([bde7ce2](https://github.com/xseman/conf.guard/commit/bde7ce2ce5e6cc62bfa3a4b0f95b96eea0cfc47b))
+
 ## [0.1.0](https://github.com/xseman/conf.guard/compare/v0.0.1...v0.1.0) (2025-04-12)
 
 
