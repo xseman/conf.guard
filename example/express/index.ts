@@ -1,9 +1,8 @@
 import path from "node:path";
 
+import { generate } from "conf.guard";
 import express from "express";
 import nconf from "nconf";
-
-import { generate } from "../../src/generator.js";
 
 interface ServerConfig {
 	port: number;
@@ -33,8 +32,10 @@ generate({
 });
 
 const config = nconf
-	.env("__") // Environment variables might make missconfiguration
-	.file("config.json") // This file might make missconfiguration
+	// variables might make missconfiguration
+	.env("__")
+	// file might make missconfiguration
+	.file("config.json")
 	.defaults({
 		server: {
 			port: 3000,

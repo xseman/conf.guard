@@ -1,8 +1,7 @@
 import path from "node:path";
 
+import { generate } from "conf.guard";
 import type { PostgresConnectionOptions } from "typeorm/driver/postgres/PostgresConnectionOptions.js";
-
-import { generate } from "../../src/generator.js";
 
 generate({
 	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),

@@ -28,9 +28,9 @@ similar solution. For now, this is mostly experimental.
 $ npm install conf.guard
 ```
 
-## Configuration Requirements
+## Requirements
 
-### TypeScript Configuration
+### TypeScript
 
 This library uses [ts-morph](https://github.com/dsherret/ts-morph) internally to
 analyze TypeScript types. For ts-morph to properly resolve types in your
@@ -39,9 +39,9 @@ project, your `tsconfig.json` must include at least these settings:
 ```json
 {
 	"compilerOptions": {
-		"target": "ESNext", // Required for modern JavaScript features
-		"module": "NodeNext", // Required for ESM compatibility
-		"moduleResolution": "nodenext" // Required for proper type resolution
+		"target": "ESNext",
+		"module": "NodeNext",
+		"moduleResolution": "nodenext"
 	}
 }
 ```
@@ -59,11 +59,11 @@ import path from "node:path";
 import { generate } from "conf.guard";
 
 generate({
-	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
+	tsconfigFilePath: "./tsconfig.json",
 	validator: {
 		variableName: "config",
-		inputFile: path.join(import.meta.dirname, "./index.ts"),
-		outputFile: path.join(import.meta.dirname, "./validator.ts"),
+		inputFile: "./index.ts",
+		outputFile: "./validator.ts",
 	},
 });
 
@@ -88,15 +88,12 @@ const config = {
 validator.check(config);
 ```
 
-### Express with nconf
+### Server `express` with `nconf`
 
 ```ts
-import path from "node:path";
-
+import { generate } from "conf.guard";
 import express from "express";
 import nconf from "nconf";
-
-import { generate } from "conf.guard";
 
 interface ServerConfig {
 	port: number;
@@ -117,17 +114,19 @@ interface Config {
 }
 
 generate({
-	tsconfigFilePath: path.join(import.meta.dirname, "./tsconfig.json"),
+	tsconfigFilePath: "./tsconfig.json",
 	validator: {
 		variableName: "config",
-		inputFile: path.join(import.meta.dirname, "./index.ts"),
-		outputFile: path.join(import.meta.dirname, "./validator.ts"),
+		inputFile: "./index.ts",
+		outputFile: "./validator.ts",
 	},
 });
 
 const config = nconf
-	.env("__") // Environment variables might make missconfiguration
-	.file("config.json") // This file might make missconfiguration
+	// variables might make missconfiguration
+	.env("__")
+	// file might make missconfiguration
+	.file("config.json")
 	.defaults({
 		server: {
 			port: 3000,

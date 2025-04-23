@@ -1,9 +1,10 @@
 {
 	"type": "module",
 	"scripts": {
-		"start": "TS_NODE_TRANSPILE_ONLY=true node --no-warnings --loader=ts-node/esm ./index.ts"
+		"start": "bun ./index.ts"
 	},
 	"dependencies": {
+		"conf.guard": "latest",
 		"express": "^5.1.0",
 		"nconf": "^0.13.0"
 	},

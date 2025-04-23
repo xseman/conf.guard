@@ -16,16 +16,29 @@ Handlebars.registerHelper("typeOf", function(value) {
 });
 
 export interface GenerateOptions {
-	tsconfigFilePath: string;
+	/**
+	 * @default "tsconfig.json"
+	 */
+	tsconfigFilePath?: string;
+	/**
+	 * @default "template.hbs"
+	 */
 	templateFile?: string;
 	validator: {
 		inputFile: string;
 		outputFile: string;
+		/**
+		 * @default "config"
+		 */
 		variableName?: string;
 	};
 }
 
 export function generate(options: GenerateOptions): void {
+	options.validator.variableName ??= "config";
+	options.tsconfigFilePath ??= path.resolve(import.meta.dirname, "tsconfig.json");
+	options.templateFile ??= path.resolve(import.meta.dirname, "template.hbs");
+
 	// Set up the TypeScript project
 	const project = new Project({
 		tsConfigFilePath: options.tsconfigFilePath,
@@ -35,15 +48,14 @@ export function generate(options: GenerateOptions): void {
 	const sourceFile = project.addSourceFileAtPath(options.validator.inputFile);
 
 	// Get the config variable
-	const confVariableName = options.validator.variableName ?? "config";
-	const confVariable = sourceFile.getVariableDeclarationOrThrow(confVariableName);
+	const confVariable = sourceFile.getVariableDeclarationOrThrow(options.validator.variableName);
 	const confType = confVariable.getType();
 
 	// Resolve the schema from the type - get both properties and schema definitions
 	const schemas = resolveTypeSchema(confType);
 
 	// Load the template file (either from user option or default)
-	const templatePath = options.templateFile || path.resolve(import.meta.dirname, "./template.hbs");
+	const templatePath = options.templateFile;
 
 	if (!fs.existsSync(templatePath)) {
 		throw new Error(`Template file not found: ${templatePath}`);
