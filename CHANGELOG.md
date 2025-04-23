@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/xseman/conf.guard/compare/v0.1.2...v0.1.3) (2025-04-23)
+
+
+### Bug Fixes
+
+* **ci:** release ([90e9898](https://github.com/xseman/conf.guard/commit/90e9898366390e6cbca08480174fd67ab993a952))
+
 ## [0.1.2](https://github.com/xseman/conf.guard/compare/v0.1.1...v0.1.2) (2025-04-23)
 
 
