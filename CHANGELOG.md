@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.2](https://github.com/xseman/conf.guard/compare/v0.1.1...v0.1.2) (2025-04-23)
+
+
+### Maintenance
+
+* bun as test runner & other improvements ([079ee13](https://github.com/xseman/conf.guard/commit/079ee132b43f3e9002173af87bc7c06294b0464e))
+* remove generated file ([cad29a4](https://github.com/xseman/conf.guard/commit/cad29a475db1913dc25d1d574073db5c9a363462))
+
 ## [0.1.1](https://github.com/xseman/conf.guard/compare/v0.1.0...v0.1.1) (2025-04-21)
 
 
